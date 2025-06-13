@@ -11,7 +11,7 @@ interface PerfumeGridProps {
 
 const perfumes: Perfume[] = [
   // Best Sellers
-  { id: 1, name: "OUD AL AKABER AL REJAL", prices: { '30ml': 45, '50ml': 75, '100ml': 135 }, image: "/photos/Perfume2.png", description: "A sophisticated blend of jasmine and sandalwood", category: 'bestsellers' },
+  { id: 1, name: "OUD AL AKABER AL REJAL", prices: { '30ml': 45, '50ml': 75, '100ml': 135 }, image: "/public/photos/Perfume2.png", description: "A sophisticated blend of jasmine and sandalwood", category: 'bestsellers' },
   { id: 2, name: "Invictus Victory Elixir Paco Rabanne ", prices: { '30ml': 5, '50ml': 10, '100ml': 15 }, image: "https://images.unsplash.com/photo-1563170351-be82bc888aa4?w=400&h=400&fit=crop", description: "Bold fusion of incense, tonka bean, and spicy woods for an intense, long-lasting scent", category: 'bestsellers' },
   { id: 3, name: "Ocean Breeze", prices: { '30ml': 38, '50ml': 68, '100ml': 125 }, image: "https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=400&h=400&fit=crop", description: "Fresh aquatic notes with citrus undertones", category: 'bestsellers' },
   { id: 4, name: "Rose Garden", prices: { '30ml': 48, '50ml': 78, '100ml': 140 }, image: "https://images.unsplash.com/photo-1588405748880-12d1d2a59d75?w=400&h=400&fit=crop", description: "Classic rose petals with a modern twist", category: 'bestsellers' },
