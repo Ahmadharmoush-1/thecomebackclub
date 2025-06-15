@@ -12,7 +12,7 @@ export const VideoSection: React.FC<VideoSectionProps> = ({ activeSection }) => 
         return {
           title: 'Best Sellers Collection',
           description: 'Discover our most loved fragrances that have captured hearts worldwide.',
-          videoUrl: '/videos/Video_resized.mp4' // Placeholder video
+          videoUrl: '/videos/video_wI6N9DDI.mp4' // Placeholder video
         };
       case 'men':
         return {

@@ -92,4 +92,12 @@
   body {
     @apply bg-background text-foreground;
   }
+  @media only screen and (max-width: 768px) {
+  body {
+    background-image: url('\public\photos\backgroundimage.png');
+    background-size: auto;
+    background-repeat: repeat;
+  }
+}
+
 }

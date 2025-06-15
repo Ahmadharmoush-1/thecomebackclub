@@ -157,7 +157,7 @@ Please confirm this order and let me know the delivery time. Thank you! 🙏`;
       className="min-h-screen bg-cover bg-center bg-fixed"
       style={{
         backgroundImage: `url('/photos/backgroundimage.png')`,
-        backgroundSize: 'cover',
+        backgroundSize: 'auto',
         backgroundRepeat: 'repeat'
       }}
     >
