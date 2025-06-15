@@ -84,8 +84,8 @@ const Index = () => {
     return cartItems.reduce((total, item) => total + item.price * item.quantity + 4 , 0);
   };
   const getCartItemCount = () => {
-    return cartItems.reduce((total, item) => total + item.quantity + 4 , 0);
-  };
+    return cartItems.reduce((total, item) => total + item.quantity  , 0);
+  };    
   const generateWhatsAppMessage = () => {
     const orderDetails = cartItems.map((item, index) => {
   const deliveryFee = 4;
@@ -175,10 +175,14 @@ Please confirm this order and let me know the delivery time. Thank you! 🙏`;
         <header className="bg-white/95 backdrop-blur-sm shadow-lg sticky top-0 z-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex justify-between items-center py-6">
-              <div className="flex items-center space-x-2">
-                <Sparkles className="h-8 w-8 text-gray-700" />
-                <h1 className="text-3xl font-bold text-gray-800">World of Perfume Lab</h1>
-              </div>
+             <div className="flex items-center space-x-2">
+       <img
+        src="\public\photos\worldofperfumefavicon.jpg" // replace with your logo path
+        alt="Logo"
+        className="h-8 w-8 object-contain"
+         />
+        <h1 className="text-3xl font-bold text-gray-800">World of Perfume Lab</h1>
+        </div>
               
               <div className="flex items-center space-x-4">
                 <button
