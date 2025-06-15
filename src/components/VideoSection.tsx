@@ -141,11 +141,14 @@ export const VideoSection: React.FC<VideoSectionProps> = ({ activeSection }) => 
   style={{ aspectRatio: '16 / 9', height: '70vh' }} // larger height
 >
   {video.videoUrl.endsWith('.mp4') ? (
-    <video
-      src={video.videoUrl}
-      controls
-      className="w-full h-full object-cover"
-    />
+   <video
+  src={video.videoUrl}
+  autoPlay
+  muted
+  loop
+  playsInline
+  className="w-full h-full object-cover"
+/>
   ) : (
     <iframe
       src={video.videoUrl}
