@@ -81,13 +81,21 @@ const Index = () => {
     }
   };
   const getTotalPrice = () => {
-    return cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
+    return cartItems.reduce((total, item) => total + item.price * item.quantity + 4 , 0);
   };
   const getCartItemCount = () => {
-    return cartItems.reduce((total, item) => total + item.quantity, 0);
+    return cartItems.reduce((total, item) => total + item.quantity + 4 , 0);
   };
   const generateWhatsAppMessage = () => {
-    const orderDetails = cartItems.map((item, index) => `${index + 1}. ${item.name} (${item.size})\n   Quantity: ${item.quantity}\n   Price: $${item.price} each\n   Subtotal: $${(item.price * item.quantity).toFixed(2)}`).join('\n\n');
+    const orderDetails = cartItems.map((item, index) => {
+  const deliveryFee = 4;
+  const subtotal = (item.price * item.quantity) + deliveryFee;
+  return `${index + 1}. ${item.name} (${item.size})
+   Quantity: ${item.quantity}
+   Price: $${item.price} each
+   Delivery fees: $${deliveryFee}
+   Subtotal: $${subtotal.toFixed(2)}`;
+    }).join('\n\n');
     const message = `🌟 New Perfume Order 🌟
 
 👤 Customer Information:
@@ -102,7 +110,7 @@ Floor: ${customerInfo.floor}
 🛍️ Order Details:
 ${orderDetails}
 
-💰 Total: $${getTotalPrice().toFixed(2)}
+💰 Total: $${getTotalPrice()+ 4}
 
 💳 Payment Method: Cash on Delivery 💳
 
