@@ -80,7 +80,7 @@ const Football = () => {
     }
 
     // Simulate sending to WhatsApp (Lebanese number)
-    const whatsappNumber = "+961"; // Lebanese WhatsApp number
+    const whatsappNumber = "+96178841832"; // Lebanese WhatsApp number
     const message = `New attendance registration:\nName: ${attendeeName}\nLocation: ${locationName}\nProgram: Football Training`;
     const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
     
