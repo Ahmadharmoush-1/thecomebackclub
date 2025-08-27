@@ -1,294 +1,179 @@
-import React, { useState } from 'react';
-import { PerfumeGrid } from '@/components/PerfumeGrid';
-import { Cart } from '@/components/cart';
-import { CustomerForm } from '@/components/CustomerForm';
-import { OrderSummary } from '@/components/OrderSummary';
-import { VideoSection } from '@/components/VideoSection';
-import { ShoppingBag, Sparkles } from 'lucide-react';
-export interface Perfume {
-  id: number;
-  name: string;
-  prices: {
-    '30ml': number;
-    '50ml': number;
-    '100ml': number;
-  };
-  image: string;
-  description: string;
-  category: 'bestsellers' | 'men' | 'women';
-}
-export interface CartItem {
-  id: number;
-  name: string;
-  price: number;
-  size: string;
-  image: string;
-  description: string;
-  quantity: number;
-}
-export interface CustomerInfo {
-  name: string;
-  phone: string;
-  city: string;
-  address: string;
-  street: string;
-  building: string;
-  floor: string;
-}
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import Layout from "@/components/Layout";
+import { ArrowRight, Users, Trophy, Clock, Star } from "lucide-react";
+import { Link } from "react-router-dom";
+import logo from "@/assets/logo.png";
+
 const Index = () => {
-  const [cartItems, setCartItems] = useState<CartItem[]>([]);
-  const [showCart, setShowCart] = useState(false);
-  const [showCheckout, setShowCheckout] = useState(false);
-  const [activeSection, setActiveSection] = useState<'bestsellers' | 'men' | 'women'>('bestsellers');
-  const [customerInfo, setCustomerInfo] = useState<CustomerInfo>({
-    name: '',
-    phone: '',
-    city: '',
-    address: '',
-    street: '',
-    building: '',
-    floor: ''
-  });
-  const addToCart = (perfume: Perfume, size: string) => {
-    const price = perfume.prices[size as keyof typeof perfume.prices];
-    setCartItems(prev => {
-      const existingItem = prev.find(item => item.id === perfume.id && item.size === size);
-      if (existingItem) {
-        return prev.map(item => item.id === perfume.id && item.size === size ? {
-          ...item,
-          quantity: item.quantity + 1
-        } : item);
-      }
-      return [...prev, {
-        id: perfume.id,
-        name: perfume.name,
-        price,
-        size,
-        image: perfume.image,
-        description: perfume.description,
-        quantity: 1
-      }];
-    });
-  };
-  const updateQuantity = (id: number, size: string, quantity: number) => {
-    if (quantity === 0) {
-      setCartItems(prev => prev.filter(item => !(item.id === id && item.size === size)));
-    } else {
-      setCartItems(prev => prev.map(item => item.id === id && item.size === size ? {
-        ...item,
-        quantity
-      } : item));
+  const features = [
+    {
+      icon: Trophy,
+      title: "Professional Training",
+      description: "Expert coaching for Football and Padel with proven methodologies"
+    },
+    {
+      icon: Users,
+      title: "Adults Only",
+      description: "Specialized programs designed specifically for adult learners"
+    },
+    {
+      icon: Clock,
+      title: "Flexible Scheduling",
+      description: "Multiple locations and time slots to fit your busy lifestyle"
+    },
+    {
+      icon: Star,
+      title: "Community Focus",
+      description: "Join a vibrant community of sports enthusiasts and improve together"
     }
-  };
-  const getTotalPrice = () => {
-    return cartItems.reduce((total, item) => total + item.price * item.quantity + 4 , 0);
-  };
-  const getCartItemCount = () => {
-    return cartItems.reduce((total, item) => total + item.quantity  , 0);
-  };    
-  const generateWhatsAppMessage = () => {
-    const orderDetails = cartItems.map((item, index) => {
-  const deliveryFee = 4;
-  const subtotal = (item.price * item.quantity) + deliveryFee;
-  return `${index + 1}. ${item.name} (${item.size})
-   Quantity: ${item.quantity}
-   Price: $${item.price} each
-   Delivery fees: $${deliveryFee}
-   Subtotal: $${subtotal.toFixed(2)}`;
-    }).join('\n\n');
-    const message = `🌟 New Perfume Order 🌟
+  ];
 
-👤 Customer Information:
-Name: ${customerInfo.name}
-Phone: ${customerInfo.phone}
-City: ${customerInfo.city}
-Address: ${customerInfo.address}
-Street: ${customerInfo.street}
-Building: ${customerInfo.building}
-Floor: ${customerInfo.floor}
-
-🛍️ Order Details:
-${orderDetails}
-
-💰 Total: $${getTotalPrice()+ 4}
-
-💳 Payment Method: Cash on Delivery 💳
-
-Please confirm this order and let me know the delivery time. Thank you! 🙏`;
-    const encodedMessage = encodeURIComponent(message);
-
-    // Check if user is on mobile device
-    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-    let whatsappUrl;
-    if (isMobile) {
-      // For mobile devices, use the whatsapp:// protocol which opens the WhatsApp app directly
-      whatsappUrl = `whatsapp://send?phone=96170027458&text=${encodedMessage}`;
-    } else {
-      // For desktop, use the web.whatsapp.com URL
-      whatsappUrl = `https://web.whatsapp.com/send?phone=96170027458&text=${encodedMessage}`;
+  const programs = [
+    {
+      title: "Football Training",
+      description: "Professional football coaching across 3 locations with flexible packages",
+      image: "/placeholder-football.jpg",
+      href: "/football",
+      gradient: "from-yellow-bright to-yellow-glow"
+    },
+    {
+      title: "Padel Training",
+      description: "Training, fun drills, and games for men and women",
+      image: "/placeholder-padel.jpg", 
+      href: "/padel",
+      gradient: "from-accent to-yellow-light"
     }
-
-    // Try to open WhatsApp app first (mobile), fallback to web version
-    setTimeout(() => {
-      window.open(whatsappUrl, '_blank');
-
-      // Additional fallback for mobile devices - if WhatsApp app doesn't open, try web version
-      if (isMobile) {
-        setTimeout(() => {
-          const webWhatsappUrl = `https://wa.me/96170027458?text=${encodedMessage}`;
-          window.open(webWhatsappUrl, '_blank');
-        }, 1000);
-      }
-    }, 0);
-  };
-  // Get section-specific background styling
-  const getSectionBackground = () => {
-    return 'bg-stone-500';
-  };
-
-  // Get section-specific navigation styling
-  const getNavBackground = () => {
-    return 'bg-stone-600';
-  };
-
-  // Get section-specific hero text styling
-  const getHeroTextColor = () => {
-    return 'text-white';
-  };
-
-  const getHeroSubTextColor = () => {
-    return 'text-stone-200';
-  };
+  ];
 
   return (
-    <div 
-      className="min-h-screen bg-cover bg-center bg-fixed"
-      style={{
-        backgroundImage: `url('/photos/backgroundimage.png')`,
-        backgroundSize: 'auto',
-        backgroundRepeat: 'repeat'
-      }}
-    >
-      {/* Overlay for better readability */}
-      <div className="min-h-screen bg-stone-800/30">
-        {/* Header */}
-        <header className="bg-white/95 backdrop-blur-sm shadow-lg sticky top-0 z-50">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex justify-between items-center py-6">
-             <div className="flex items-center space-x-2">
-       <img
-        src="\public\photos\worldofperfumefavicon.jpg" // replace with your logo path
-        alt="Logo"
-        className="h-8 w-8 object-contain"
-         />
-        <h1 className="text-3xl font-bold text-gray-800">World of Perfume Lab</h1>
+    <Layout>
+      {/* Hero Section */}
+      <section className="relative bg-gradient-hero text-primary-foreground overflow-hidden">
+        <div className="absolute inset-0 bg-[url('/hero-pattern.svg')] opacity-10"></div>
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32">
+          <div className="text-center space-y-8 animate-fade-in">
+            <div className="flex justify-center mb-8">
+              <img src={logo} alt="The Comeback Club Academy" className="h-24 w-24 animate-glow-pulse" />
+            </div>
+            <h1 className="text-4xl lg:text-6xl font-bold tracking-tight">
+              The Comeback Club
+              <span className="block text-accent">Academy</span>
+            </h1>
+            <p className="text-xl lg:text-2xl text-primary-foreground/90 max-w-3xl mx-auto">
+              Professional Football & Padel Training for Adults Only
+            </p>
+            <p className="text-lg text-primary-foreground/80 max-w-2xl mx-auto">
+              Join our community and elevate your game with expert coaching, flexible schedules, and a supportive environment.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button variant="default" size="lg" asChild>
+                <Link to="/football">
+                  Football Training
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Link>
+              </Button>
+              <Button variant="secondary" size="lg" asChild>
+                <Link to="/padel">
+                  Padel Training
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Link>
+              </Button>
+            </div>
+          </div>
         </div>
-              
-              <div className="flex items-center space-x-4">
-                <button
-                  onClick={() => setShowCart(true)}
-                  className="relative p-3 bg-gray-600 text-white rounded-full hover:bg-gray-700 transition-all duration-300 shadow-lg hover:shadow-xl"
-                >
-                  <ShoppingBag className="h-6 w-6" />
-                  {getCartItemCount() > 0 && (
-                    <span className="absolute -top-2 -right-2 bg-gray-800 text-white text-xs rounded-full h-6 w-6 flex items-center justify-center font-bold">
-                      {getCartItemCount()}
-                    </span>
-                  )}
-                </button>
-              </div>
-            </div>
-          </div>
-        </header>
+      </section>
 
-        {/* Navigation */}
-        <nav className="border-b border-stone-300 bg-stone-600/90 backdrop-blur-sm">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex justify-center space-x-8 py-4">
-              {[
-                { id: 'bestsellers', label: 'Best Sellers' },
-                { id: 'men', label: 'Men\'s Collection' },
-                { id: 'women', label: 'Women\'s Collection' }
-              ].map((section) => (
-                <button
-                  key={section.id}
-                  onClick={() => setActiveSection(section.id as 'bestsellers' | 'men' | 'women')}
-                  className={`px-6 py-3 rounded-lg font-semibold transition-all duration-300 ${
-                    activeSection === section.id
-                      ? 'bg-stone-800 text-white shadow-lg'
-                      : 'bg-white/90 text-stone-700 hover:bg-white shadow backdrop-blur-sm'
-                  }`}
-                >
-                  {section.label}
-                </button>
-              ))}
-            </div>
-          </div>
-        </nav>
-
-        {/* Hero Section */}
-        <section className="py-20 px-4 text-center">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-5xl md:text-6xl font-bold mb-6 text-white drop-shadow-lg">
-              Discover Your Perfect
-              <span className="block text-stone-100">
-                Fragrance
-              </span>
+      {/* Features Section */}
+      <section className="py-20 bg-background">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
+              Why Choose Us?
             </h2>
-            <p className="text-xl text-stone-200 mb-8 max-w-2xl mx-auto drop-shadow-md">
-              Luxury perfumes crafted with the finest ingredients. Find your signature scent today.
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Experience the difference with our professional approach to adult sports training
             </p>
           </div>
-        </section>
-
-        {/* Video Section */}
-        <VideoSection activeSection={activeSection} />
-
-        {/* Main Content */}
-        {!showCheckout ? (
-          <PerfumeGrid onAddToCart={addToCart} activeSection={activeSection} />
-        ) : (
-          <div className="max-w-4xl mx-auto px-4 py-8">
-            <div className="grid md:grid-cols-2 gap-8">
-              <CustomerForm customerInfo={customerInfo} setCustomerInfo={setCustomerInfo} />
-              <OrderSummary
-                cartItems={cartItems}
-                totalPrice={getTotalPrice()}
-                onCompleteOrder={generateWhatsAppMessage}
-                customerInfo={customerInfo}
-              />
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {features.map((feature, index) => (
+              <Card key={index} className="border-border hover:shadow-card transition-all duration-300 hover:-translate-y-1">
+                <CardHeader className="text-center">
+                  <div className="mx-auto bg-accent/10 p-3 rounded-full w-fit mb-4">
+                    <feature.icon className="h-8 w-8 text-accent" />
+                  </div>
+                  <CardTitle className="text-xl">{feature.title}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <CardDescription className="text-center">
+                    {feature.description}
+                  </CardDescription>
+                </CardContent>
+              </Card>
+            ))}
           </div>
-        )}
+        </div>
+      </section>
 
-        {/* Cart Sidebar */}
-        <Cart
-          isOpen={showCart}
-          onClose={() => setShowCart(false)}
-          cartItems={cartItems}
-          updateQuantity={updateQuantity}
-          totalPrice={getTotalPrice()}
-          onProceedToCheckout={() => {
-            setShowCart(false);
-            setShowCheckout(true);
-          }}
-        />
-
-        {/* Checkout Navigation */}
-        {showCheckout && (
-          <div className="fixed bottom-4 left-4 right-4 z-50">
-            <div className="max-w-4xl mx-auto">
-              <button
-                onClick={() => setShowCheckout(false)}
-                className="bg-gray-600/90 hover:bg-gray-700 text-white px-6 py-3 rounded-lg transition-colors backdrop-blur-sm"
-              >
-                ← Back to Shopping
-              </button>
-            </div>
+      {/* Programs Section */}
+      <section className="py-20 bg-secondary/30">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
+              Our Training Programs
+            </h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Choose from our specialized programs designed for adult athletes
+            </p>
           </div>
-        )}
-      </div>
-    </div>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {programs.map((program, index) => (
+              <Card key={index} className="overflow-hidden hover:shadow-glow transition-all duration-300 hover:scale-105">
+                <div className={`h-48 bg-gradient-to-br ${program.gradient} relative`}>
+                  <div className="absolute inset-0 bg-black/20"></div>
+                  <div className="absolute bottom-4 left-4 text-white">
+                    <h3 className="text-2xl font-bold">{program.title}</h3>
+                  </div>
+                </div>
+                <CardContent className="p-6">
+                  <CardDescription className="text-base mb-6">
+                    {program.description}
+                  </CardDescription>
+                  <Button variant="default"  className="w-full" asChild>
+                    <Link to={program.href}>
+                      Learn More
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </Link>
+                  </Button>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Call to Action */}
+      <section className="py-20 bg-accent/10">
+        <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
+            Ready to Make Your Comeback?
+          </h2>
+          <p className="text-lg text-muted-foreground mb-8">
+            Join The Comeback Club Academy today and start your journey to better fitness and skills.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button variant="default"  size="lg" asChild>
+              <Link to="/schedule">View Schedule</Link>
+            </Button>
+            <Button variant="secondary" size="lg" asChild>
+              <a href="https://chat.whatsapp.com/community-link" target="_blank" rel="noopener noreferrer">
+                Join WhatsApp Community
+              </a>
+            </Button>
+          </div>
+        </div>
+      </section>
+    </Layout>
   );
 };
 

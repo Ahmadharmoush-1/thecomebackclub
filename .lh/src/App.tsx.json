@@ -1,0 +1,18 @@
+{
+    "sourceFile": "src/App.tsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1756281056554,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1756281056554,
+            "name": "Commit-0",
+            "content": "import { Toaster } from \"@/components/ui/toaster\";\r\nimport { Toaster as Sonner } from \"@/components/ui/sonner\";\r\nimport { TooltipProvider } from \"@/components/ui/tooltip\";\r\nimport { QueryClient, QueryClientProvider } from \"@tanstack/react-query\";\r\nimport { BrowserRouter, Routes, Route } from \"react-router-dom\";\r\nimport Index from \"./pages/Index\";\r\nimport Football from \"./pages/Football\";\r\nimport Padel from \"./pages/Padel\";\r\nimport Coaches from \"./pages/Coaches\";\r\nimport Media from \"./pages/Media\";\r\nimport Schedule from \"./pages/Schedule\";\r\nimport NotFound from \"./pages/NotFound\";\r\n\r\nconst queryClient = new QueryClient();\r\n\r\nconst App = () => (\r\n  <QueryClientProvider client={queryClient}>\r\n    <TooltipProvider>\r\n      <Toaster />\r\n      <Sonner />\r\n      <BrowserRouter>\r\n        <Routes>\r\n          <Route path=\"/\" element={<Index />} />\r\n          <Route path=\"/football\" element={<Football />} />\r\n          <Route path=\"/padel\" element={<Padel />} />\r\n          <Route path=\"/coaches\" element={<Coaches />} />\r\n          <Route path=\"/media\" element={<Media />} />\r\n          <Route path=\"/schedule\" element={<Schedule />} />\r\n          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL \"*\" ROUTE */}\r\n          <Route path=\"*\" element={<NotFound />} />\r\n        </Routes>\r\n      </BrowserRouter>\r\n    </TooltipProvider>\r\n  </QueryClientProvider>\r\n);\r\n\r\nexport default App;\r\n"
+        }
+    ]
+}
