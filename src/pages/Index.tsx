@@ -58,7 +58,7 @@ const Index = () => {
     playsInline
     className="absolute inset-0 w-full h-full object-cover"
   >
-    <source src=" /public/videos/video1.mp4" type="video/mp4" />
+    <source src="/videos/video1.mp4" type="video/mp4" />
   </video>
 
   {/* Overlay pattern to darken video */}
