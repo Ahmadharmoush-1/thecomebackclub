@@ -49,40 +49,56 @@ const Index = () => {
   return (
     <Layout>
       {/* Hero Section */}
-      <section className="relative bg-gradient-hero text-primary-foreground overflow-hidden">
-        <div className="absolute inset-0 bg-[url('/hero-pattern.svg')] opacity-10"></div>
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32">
-          <div className="text-center space-y-8 animate-fade-in">
-            <div className="flex justify-center mb-8">
-              <img src={logo} alt="The Comeback Club Academy" className="h-24 w-24 animate-glow-pulse" />
-            </div>
-            <h1 className="text-4xl lg:text-6xl font-bold tracking-tight">
-              The Comeback Club
-              <span className="block text-accent">Academy</span>
-            </h1>
-            <p className="text-xl lg:text-2xl text-primary-foreground/90 max-w-3xl mx-auto">
-              Professional Football & Padel Training for Adults Only
-            </p>
-            <p className="text-lg text-primary-foreground/80 max-w-2xl mx-auto">
-              Join our community and elevate your game with expert coaching, flexible schedules, and a supportive environment.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button variant="default" size="lg" asChild>
-                <Link to="/football">
-                  Football Training
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Link>
-              </Button>
-              <Button variant="secondary" size="lg" asChild>
-                <Link to="/padel">
-                  Padel Training
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Link>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
+ <section className="relative bg-gradient-hero text-primary-foreground overflow-hidden">
+  {/* Background Video */}
+  <video
+    autoPlay
+    loop
+    muted
+    playsInline
+    className="absolute inset-0 w-full h-full object-cover"
+  >
+    <source src=" /public/videos/video1.mp4" type="video/mp4" />
+  </video>
+
+  {/* Overlay pattern to darken video */}
+  <div className="absolute inset-0 bg-black/40"></div>
+  <div className="absolute inset-0 bg-[url('/hero-pattern.svg')] opacity-10"></div>
+
+  {/* Foreground content */}
+  <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32">
+    <div className="text-center space-y-8 animate-fade-in">
+      <div className="flex justify-center mb-8">
+        <img src={logo} alt="The Comeback Club Academy" className="h-24 w-24 animate-glow-pulse rounded-full" />
+      </div>
+      <h1 className="text-4xl lg:text-6xl font-bold tracking-tight">
+        The Comeback Club
+        <span className="block text-accent">Academy</span>
+      </h1>
+      <p className="text-xl lg:text-2xl text-primary-foreground/90 max-w-3xl mx-auto">
+        Professional Football & Padel Training for Adults Only
+      </p>
+      <p className="text-lg text-primary-foreground/80 max-w-2xl mx-auto">
+        Join our community and elevate your game with expert coaching, flexible schedules, and a supportive environment.
+      </p>
+      <div className="flex flex-col sm:flex-row gap-4 justify-center">
+        <Button variant="default" size="lg" asChild>
+          <Link to="/football">
+            Football Training
+            <ArrowRight className="ml-2 h-5 w-5" />
+          </Link>
+        </Button>
+        <Button variant="secondary" size="lg" asChild>
+          <Link to="/padel">
+            Padel Training
+            <ArrowRight className="ml-2 h-5 w-5" />
+          </Link>
+        </Button>
+      </div>
+    </div>
+  </div>
+</section>
+
 
       {/* Features Section */}
       <section className="py-20 bg-background">

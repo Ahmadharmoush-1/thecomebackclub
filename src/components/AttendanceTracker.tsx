@@ -1,13 +1,14 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Users, TrendingUp, Clock } from "lucide-react";
+import { startOfWeek, isBefore } from "date-fns"; // install date-fns
 
 interface AttendanceTrackerProps {
   sessionName: string;
-  currentAttendees: number;
+  currentAttendees: number; // initial value
   maxCapacity: number;
   location: string;
   timeSlot: string;
@@ -25,9 +26,30 @@ const AttendanceTracker = ({
   onJoinSession 
 }: AttendanceTrackerProps) => {
   const [isAnimating, setIsAnimating] = useState(false);
-  
-  const attendancePercentage = (currentAttendees / maxCapacity) * 100;
-  const spotsLeft = maxCapacity - currentAttendees;
+  const [attendees, setAttendees] = useState(currentAttendees);
+
+  // Weekly reset (every Monday)
+  useEffect(() => {
+    const lastReset = localStorage.getItem("attendanceLastReset");
+    const now = new Date();
+    const weekStart = startOfWeek(now, { weekStartsOn: 1 }); // Monday start
+
+    if (!lastReset || isBefore(new Date(lastReset), weekStart)) {
+      setAttendees(0);
+      localStorage.setItem("attendanceLastReset", weekStart.toISOString());
+    } else {
+      const savedAttendees = localStorage.getItem(`${sessionName}-attendees`);
+      if (savedAttendees) setAttendees(Number(savedAttendees));
+    }
+  }, [sessionName]);
+
+  // Save whenever attendees change
+  useEffect(() => {
+    localStorage.setItem(`${sessionName}-attendees`, attendees.toString());
+  }, [attendees, sessionName]);
+
+  const attendancePercentage = (attendees / maxCapacity) * 100;
+  const spotsLeft = maxCapacity - attendees;
   
   const getUrgencyLevel = () => {
     if (spotsLeft <= 2) return "high";
@@ -50,8 +72,11 @@ const AttendanceTracker = ({
   };
 
   const handleJoinClick = () => {
+    if (attendees < maxCapacity) {
+      setAttendees(prev => prev + 1);
+      onJoinSession?.();
+    }
     setIsAnimating(true);
-    onJoinSession?.();
     setTimeout(() => setIsAnimating(false), 300);
   };
 
@@ -97,7 +122,7 @@ const AttendanceTracker = ({
               Current Attendance
             </span>
             <span className={`font-medium ${getUrgencyColor()}`}>
-              {currentAttendees}/{maxCapacity}
+              {attendees}/{maxCapacity}
             </span>
           </div>
           
