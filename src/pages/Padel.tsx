@@ -172,7 +172,7 @@ const Padel = () => {
                         {location.features.map((feature, idx) => (
                           <span 
                             key={idx}
-                            className="bg-accent/10 text-accent px-3 py-1 rounded-full text-sm"
+                            className="bg-foreground/10 text-foreground px-3 py-1 rounded-full text-sm font-medium"
                           >
                             {feature}
                           </span>

@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 20,
+            "activePatchIndex": 21,
             "patches": [
                 {
                     "date": 1756281036656,
@@ -88,6 +88,10 @@
                 {
                     "date": 1756464481742,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -70,9 +70,9 @@\n     muted\r\n     playsInline\r\n     className=\"absolute inset-0 w-full h-full object-cover\"\r\n   >\r\n-    <source src=\"/videos/video1.mp4\" type=\"video/mp4\" />\r\n+    <source src=\"/videos/padel.mp4\" type=\"video/mp4\" />\r\n   </video>\r\n \r\n   {/* Overlay pattern to darken video */}\r\n   <div className=\"absolute inset-0 bg-black/40\"></div>\r\n"
+                },
+                {
+                    "date": 1756466232069,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -171,9 +171,9 @@\n                       <div className=\"flex flex-wrap gap-2\">\r\n                         {location.features.map((feature, idx) => (\r\n                           <span \r\n                             key={idx}\r\n-                            className=\"bg-accent/10 text-accent px-3 py-1 rounded-full text-sm\"\r\n+                            className=\"bg-foreground/10 text-foreground px-3 py-1 rounded-full text-sm font-medium\"\r\n                           >\r\n                             {feature}\r\n                           </span>\r\n                         ))}\r\n"
                 }
             ],
             "date": 1756281036656,
