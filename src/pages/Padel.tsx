@@ -2,9 +2,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import Layout from "@/components/Layout";
 import GoogleMapEmbed from "@/components/GoogleMapEmbed";
-import AttendanceTracker from "@/components/AttendanceTracker";
 import TestimonialsSection from "@/components/TestimonialsSection";
-import { MapPin, Clock, DollarSign, Users, Phone, Gamepad2, Target, Trophy } from "lucide-react";
+import { MapPin, Clock, DollarSign, Phone, Gamepad2, Target, Trophy } from "lucide-react";
 
 const Padel = () => {
   const locations = [
@@ -12,17 +11,13 @@ const Padel = () => {
       name: "Premium Padel Center",
       address: "Beirut Central District, Lebanon",
       schedule: "Monday, Wednesday, Friday: 8:00 PM - 9:30 PM",
-      features: ["Professional Courts", "Equipment Available", "Changing Rooms"],
-      attendees: 6,
-      maxCapacity: 8
+      features: ["Professional Courts", "Equipment Available", "Changing Rooms"]
     },
     {
       name: "Elite Padel Club",
       address: "Achrafieh District, Beirut, Lebanon",
       schedule: "Tuesday, Thursday: 7:30 PM - 9:00 PM",
-      features: ["Outdoor Courts", "Floodlights", "Parking Available"],
-      attendees: 7,
-      maxCapacity: 8
+      features: ["Outdoor Courts", "Floodlights", "Parking Available"]
     }
   ];
 
@@ -66,16 +61,45 @@ const Padel = () => {
   return (
     <Layout>
       {/* Hero Section */}
-      <section className="bg-gradient-primary py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl lg:text-5xl font-bold text-black mb-6">
-            Padel Training Program
-          </h1>
-          <p className="text-xl text-black/80 max-w-3xl mx-auto">
-            Professional Padel coaching for men and women. Training, fun drills, and competitive games for all skill levels.
-          </p>
-        </div>
-      </section>
+      {/* Padel Training Program with Video Background */}
+ <section className="relative bg-gradient-hero text-primary-foreground overflow-hidden">
+  {/* Background Video */}
+  <video
+    autoPlay
+    loop
+    muted
+    playsInline
+    className="absolute inset-0 w-full h-full object-cover"
+  >
+    <source src="/videos/padel.mp4" type="video/mp4" />
+  </video>
+
+  {/* Overlay pattern to darken video */}
+  <div className="absolute inset-0 bg-black/40"></div>
+  <div className="absolute inset-0 bg-[url('/hero-pattern.svg')] opacity-10"></div>
+
+  {/* Foreground content */}
+  <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32">
+    <div className="text-center space-y-8 animate-fade-in">
+      <div className="flex justify-center mb-8">
+        {/* <img src={logo} alt="The Comeback Club Academy" className="h-24 w-24 animate-glow-pulse rounded-full" /> */}
+      </div>
+      <h1 className="text-4xl lg:text-6xl font-bold tracking-tight">
+        The Comeback Club
+        <span className="block text-accent">Academy</span>
+      </h1>
+      <p className="text-xl lg:text-2xl text-primary-foreground/90 max-w-3xl mx-auto">
+         Padel Training for Adults Only
+      </p>
+      <p className="text-lg text-primary-foreground/80 max-w-2xl mx-auto">
+        Join our community and elevate your game with expert coaching, flexible schedules, and a supportive environment.
+      </p>
+      <div className="flex flex-col sm:flex-row gap-4 justify-center">
+        
+      </div>
+    </div>
+  </div>
+</section>
 
       {/* Session Types */}
       <section className="py-20 bg-background">
@@ -156,22 +180,13 @@ const Padel = () => {
                       </div>
                     </div>
                     <Button variant="default" className="w-full hover-scale" asChild>
-                      <a href="https://wa.me/+96178841832" target="_blank" rel="noopener noreferrer">
+                      <a href="https://wa.me/+9611234567" target="_blank" rel="noopener noreferrer">
                         <Phone className="h-4 w-4 mr-2" />
                         Register for This Location
                       </a>
                     </Button>
                   </CardContent>
                 </Card>
-                
-                <AttendanceTracker
-                  sessionName={location.name}
-                  currentAttendees={location.attendees}
-                  maxCapacity={location.maxCapacity}
-                  location={location.address}
-                  timeSlot={location.schedule}
-                  sport="Padel"
-                />
               </div>
             ))}
           </div>
@@ -229,7 +244,7 @@ const Padel = () => {
                     className="w-full hover-scale"
                     asChild
                   >
-                    <a href="https://wa.me/+96178841832" target="_blank" rel="noopener noreferrer">
+                    <a href="https://wa.me/+9611234567" target="_blank" rel="noopener noreferrer">
                       <Phone className="h-4 w-4 mr-2" />
                       Register Now
                     </a>
@@ -272,7 +287,7 @@ const Padel = () => {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button variant="default" size="lg" asChild>
-              <a href="https://wa.me/+96178841832" target="_blank" rel="noopener noreferrer">
+              <a href="https://wa.me/+9611234567" target="_blank" rel="noopener noreferrer">
                 Register Now
               </a>
             </Button>

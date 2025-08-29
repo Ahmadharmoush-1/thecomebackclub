@@ -6,7 +6,7 @@ import { Award, Star, Trophy, Users } from "lucide-react";
 const Coaches = () => {
   const coaches = [
     {
-      name: "Ahmed Hassan",
+      name: "name",
       role: "Head Football Coach",
       specialties: ["Tactical Training", "Youth Development", "Advanced Techniques"],
       experience: "15+ years",
@@ -20,7 +20,7 @@ const Coaches = () => {
       bio: "Ahmed brings over 15 years of professional football experience to The Comeback Club Academy. His passion for developing adult players and tactical expertise has helped hundreds of players improve their game."
     },
     {
-      name: "Maria Rodriguez",
+      name: "name",
       role: "Senior Padel Coach",
       specialties: ["Technical Skills", "Mental Training", "Competition Prep"],
       experience: "12+ years",
@@ -34,7 +34,7 @@ const Coaches = () => {
       bio: "Maria is a former professional padel player who has dedicated her career to teaching adults the beautiful game of padel. Her technical expertise and encouraging approach makes learning enjoyable for all skill levels."
     },
     {
-      name: "Omar Khalil",
+      name: "name",
       role: "Football Skills Coach",
       specialties: ["Ball Control", "Shooting", "Speed Training"],
       experience: "8+ years",
@@ -48,7 +48,7 @@ const Coaches = () => {
       bio: "Omar specializes in individual skill development and conditioning for adult players. His innovative training methods focus on improving technical abilities while maintaining fitness and injury prevention."
     },
     {
-      name: "Layla Mansour",
+      name: "name",
       role: "Padel Fitness Coach",
       specialties: ["Fitness Training", "Injury Prevention", "Beginner Programs"],
       experience: "10+ years",
@@ -85,7 +85,7 @@ const Coaches = () => {
               <div className="flex justify-center">
                 <Trophy className="h-8 w-8 text-accent" />
               </div>
-              <div className="text-3xl font-bold text-foreground">45+</div>
+              <div className="text-3xl font-bold text-foreground">5+</div>
               <div className="text-sm text-muted-foreground">Years Combined Experience</div>
             </div>
             <div className="space-y-2">
@@ -99,7 +99,7 @@ const Coaches = () => {
               <div className="flex justify-center">
                 <Users className="h-8 w-8 text-accent" />
               </div>
-              <div className="text-3xl font-bold text-foreground">500+</div>
+              <div className="text-3xl font-bold text-foreground">100+</div>
               <div className="text-sm text-muted-foreground">Students Trained</div>
             </div>
             <div className="space-y-2">
